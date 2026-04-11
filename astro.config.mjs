@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   integrations: [tailwind()],
   site: 'https://wavival.github.io',
-  base: '/portfolio/',
+  base: '/portfolio',
   vite: {
     resolve: {
       alias: {
