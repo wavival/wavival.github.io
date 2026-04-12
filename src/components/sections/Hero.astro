@@ -8,7 +8,7 @@ import Link from "@/components/ui/Link.astro";
 
     <div class="w-full md:w-2/5 flex justify-center">
       <img
-src={`${import.meta.env.BASE_URL}images/profile.webp`}        alt="Valentina Ramírez"
+src={`${import.meta.env.BASE_URL}images/profile.webp`}        alt="Foto de Valentina Ramírez" fetchpriority="high"
         class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-[var(--brand-blue)] shadow-lg"
       />
     </div>
@@ -36,9 +36,9 @@ src={`${import.meta.env.BASE_URL}images/profile.webp`}        alt="Valentina Ram
           Descargar CV
         </Button>
         <div class="flex items-center gap-[16px]">
-    <Link href="https://linkedin.com/in/wavival" target="_blank" icon="linkedin" />
-<Link href="https://github.com/wavival" target="_blank" icon="github" />
-<Link href="https://platzi.com/p/wavival" target="_blank" icon="link"
+    <Link href="https://linkedin.com/in/wavival" target="_blank" icon="linkedin" aria-label="Peril de Linkedin de Valentina Ramírez" />
+<Link href="https://github.com/wavival" target="_blank" icon="github" aria-label="Perfil de GitHub de Valentina Ramírez" />
+<Link href="https://platzi.com/p/wavival" target="_blank" icon="link" aria-label="Perfil de Platzi de Valentina Ramírez" />
   </div>
       </div>
 
