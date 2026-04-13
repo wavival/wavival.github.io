@@ -106,12 +106,13 @@ const jsonLd = JSON.stringify({
       import AOS from 'aos';
       import 'aos/dist/aos.css';
 
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       AOS.init({
-        duration: 800,
+        duration: reduceMotion ? 0 : 800,
         easing: 'ease-in-out',
         once: true,
-        offset: 100,
-        disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        offset: reduceMotion ? 0 : 100,
       });
     </script>
     <script type="application/ld+json" set:html={jsonLd} />
