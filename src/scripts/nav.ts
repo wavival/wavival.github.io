@@ -26,6 +26,10 @@ btn?.addEventListener("click", () => {
   isOpen ? closeMenu() : openMenu();
 });
 
-menu?.querySelectorAll("a").forEach(link => {
+menu?.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", closeMenu);
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && menu?.classList.contains("opacity-100")) closeMenu();
 });

@@ -3,9 +3,20 @@ import Button from "@/components/ui/Button.astro";
 import Link from "@/components/ui/Link.astro";
 ---
 
-<section class="section min-h-[calc(100dvh-64px)] flex items-center" data-aos="fade-up">
-  <div class="w-full flex flex-col md:flex-row-reverse items-center gap-12">
+<script>
+  document.getElementById("btn-download-cv")?.addEventListener("click", () => {
+    if (typeof gtag !== "undefined") {
+      gtag("event", "file_download", {
+        file_name: "cv_valentina_ramirez.pdf",
+        file_extension: "pdf",
+        link_text: "Descargar CV",
+      });
+    }
+  });
+</script>
 
+<section class="section min-h-[calc(100dvh-64px)] flex items-center" data-aos="fade-up" id="hero">
+  <div class="w-full flex flex-col md:flex-row-reverse items-center gap-12">
     <div class="w-full md:w-2/5 flex justify-center">
       <img
         src={`${import.meta.env.BASE_URL}images/profile.webp`}
@@ -19,14 +30,15 @@ import Link from "@/components/ui/Link.astro";
     </div>
 
     <div class="w-full md:w-3/5 flex flex-col gap-6">
-
       <div class="flex flex-wrap gap-2" aria-label="Especialidades">
         <span class="chip">Backend</span>
         <span class="chip">IA</span>
         <span class="chip">AppSec</span>
       </div>
 
-      <h1 class="font-display font-bold text-[var(--text-primary)] text-4xl md:text-5xl leading-tight">
+      <h1
+        class="font-display font-bold text-[var(--text-primary)] text-4xl md:text-5xl leading-tight"
+      >
         Del problema al producto.<br />
         <span class="text-[var(--brand-blue)]">Yo construyo el camino.</span>
       </h1>
@@ -38,20 +50,35 @@ import Link from "@/components/ui/Link.astro";
 
       <div class="flex items-center gap-5 flex-wrap">
         <Button
-          href={`${import.meta.env.BASE_URL}cv_valentina_ramirez_es.pdf`}
-          target="_blank"
+          id="btn-download-cv"
+          href={`${import.meta.env.BASE_URL}cv_valentina_ramirez.pdf`}
+          download="cv_valentina_ramirez.pdf"
           icon="download-cv-white"
           aria-label="Descargar CV de Valentina Ramírez en PDF"
         >
           Descargar CV
         </Button>
         <div class="flex items-center gap-[16px]">
-          <Link href="https://linkedin.com/in/wavival" target="_blank" icon="linkedin" aria-label="Perfil de LinkedIn de Valentina Ramírez" />
-          <Link href="https://github.com/wavival" target="_blank" icon="github" aria-label="Perfil de GitHub de Valentina Ramírez" />
-          <Link href="https://platzi.com/p/wavival" target="_blank" icon="link" aria-label="Perfil de Platzi de Valentina Ramírez" />
+          <Link
+            href="https://linkedin.com/in/wavival"
+            target="_blank"
+            icon="linkedin"
+            aria-label="Perfil de LinkedIn de Valentina Ramírez"
+          />
+          <Link
+            href="https://github.com/wavival"
+            target="_blank"
+            icon="github"
+            aria-label="Perfil de GitHub de Valentina Ramírez"
+          />
+          <Link
+            href="https://blog.luminaw.co"
+            target="_blank"
+            icon="link"
+            aria-label="Blog de Lúmina W creado por Valentina Ramírez"
+          />
         </div>
       </div>
-
     </div>
   </div>
 </section>

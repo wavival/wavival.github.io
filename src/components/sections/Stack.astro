@@ -3,18 +3,17 @@ const stack = [
   {
     category: "Backend",
     description: "El núcleo de todo lo que construyo.",
-    tools: ["Python", "Django REST Framework", "PostgreSQL"],
+    tools: ["Python", "Django", "Django REST Framework", "PostgreSQL"],
   },
-  
   {
     category: "Seguridad",
     description: "Mentalidad ofensiva para escribir código defensivo.",
-    tools: ["OWASP", "Burp Suite", "Nmap", "MITRE ATT&CK"],
+    tools: ["OWASP", "MITRE ATT&CK", "Linux"],
   },
   {
-    category: "IA & Automatización",
+    category: "IA & Herramientas",
     description: "IA como copiloto real, no como atajo.",
-    tools: ["Claude API", "n8n", "Git", "Linux"],
+    tools: ["Claude API", "Claude AI", "n8n"],
   },
   {
     category: "Frontend",
@@ -29,16 +28,24 @@ const stack = [
   <h2 class="section-title">Stack favorito</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-    {stack.map((s, index) => (
-      <article class="card-plain flex flex-col gap-4" data-aos="fade-up" data-aos-delay={index * 100}>
-        <div>
-          <h3 class="font-display font-bold text-lg text-[var(--brand-blue)]">{s.category}</h3>
-          <p class="text-xs mt-1 italic">{s.description}</p>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          {s.tools.map((t) => <span class="chip !text-[var(--text-primary)]">{t}</span>)}
-        </div>
-      </article>
-    ))}
+    {
+      stack.map((s, index) => (
+        <article
+          class="card-plain flex flex-col gap-4"
+          data-aos="fade-up"
+          data-aos-delay={index * 100}
+        >
+          <div>
+            <h3 class="font-display font-bold text-lg text-[var(--brand-blue)]">{s.category}</h3>
+            <p class="text-xs mt-1 italic">{s.description}</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {s.tools.map((t) => (
+              <span class="chip !text-[var(--text-primary)]">{t}</span>
+            ))}
+          </div>
+        </article>
+      ))
+    }
   </div>
 </section>

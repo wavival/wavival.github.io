@@ -1,13 +1,13 @@
 /// <reference types="astro/client" />
 
-declare module 'aos' {
+declare module "aos" {
   interface AosOptions {
     duration?: number;
     easing?: string;
     once?: boolean;
     offset?: number;
     delay?: number;
-    disable?: boolean | 'mobile' | 'phone' | 'tablet' | (() => boolean);
+    disable?: boolean | "mobile" | "phone" | "tablet" | (() => boolean);
     startEvent?: string;
     initClassName?: string;
     animatedClassName?: string;

@@ -27,17 +27,17 @@ const jsonLd = JSON.stringify({
     {
       "@type": "Person",
       "@id": `${site}/#person`,
-      "name": "Valentina Ramírez",
-      "url": site,
-      "image": ogImage.toString(),
-      "jobTitle": "Backend Developer & Founder",
-      "description": description,
-      "worksFor": {
+      name: "Valentina Ramírez",
+      url: site,
+      image: ogImage.toString(),
+      jobTitle: "Backend Developer & Founder",
+      description: description,
+      worksFor: {
         "@type": "Organization",
-        "name": "Lúmina W",
-        "url": "https://luminaw.co",
+        name: "Lúmina W",
+        url: "https://luminaw.co",
       },
-      "sameAs": [
+      sameAs: [
         "https://linkedin.com/in/wavival",
         "https://github.com/wavival",
         "https://instagram.com/wavival",
@@ -46,11 +46,11 @@ const jsonLd = JSON.stringify({
     {
       "@type": "WebSite",
       "@id": `${site}/#website`,
-      "url": site,
-      "name": title,
-      "description": description,
-      "inLanguage": "es-CO",
-      "author": { "@id": `${site}/#person` },
+      url: site,
+      name: title,
+      description: description,
+      inLanguage: "es-CO",
+      author: { "@id": `${site}/#person` },
     },
   ],
 });
@@ -63,9 +63,15 @@ const jsonLd = JSON.stringify({
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Valentina Ramírez" />
-    {noindex
-      ? <meta name="robots" content="noindex, nofollow" />
-      : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta
+          name="robots"
+          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        />
+      )
     }
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />
@@ -94,28 +100,38 @@ const jsonLd = JSON.stringify({
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Raleway:wght@600;700;800&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BC0CS9P1BY"></script>
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Raleway:wght@600;700;800&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-BC0CS9P1BY"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BC0CS9P1BY');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-BC0CS9P1BY");
     </script>
     <script>
-      import AOS from 'aos';
-      import 'aos/dist/aos.css';
+      import AOS from "aos";
+      import "aos/dist/aos.css";
 
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       AOS.init({
         duration: reduceMotion ? 0 : 800,
-        easing: 'ease-in-out',
+        easing: "ease-in-out",
         once: true,
         offset: reduceMotion ? 0 : 100,
       });
     </script>
-    <script type="application/ld+json" set:html={jsonLd} />
+    <script is:inline type="application/ld+json" set:html={jsonLd} />
   </head>
   <body class="bg-[var(--bg-page)] text-[var(--text-primary)] antialiased">
     <a

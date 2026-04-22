@@ -34,8 +34,11 @@ Thumbs.db
 ehthumbs.db
 
 # editor / IDE
-.vscode/
+.vscode/settings.json
 .idea/
+
+# Claude Code local config
+.claude/
 
 # TypeScript build info
 *.tsbuildinfo

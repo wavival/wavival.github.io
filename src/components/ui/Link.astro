@@ -9,18 +9,22 @@ interface Props {
 
 const ICONS_BASE = `${import.meta.env.BASE_URL}icons/ui`;
 
-const {
-  href,
-  target = "_self",
-  class: extra = "",
-  icon,
-  "aria-label": ariaLabel,
-} = Astro.props;
+const { href, target = "_self", class: extra = "", icon, "aria-label": ariaLabel } = Astro.props;
 
 const rel = target === "_blank" ? "noopener noreferrer" : undefined;
 ---
 
 <a href={href} target={target} rel={rel} class={`link ${extra}`} aria-label={ariaLabel}>
-  {icon && <img src={`${ICONS_BASE}/${icon}.svg`} alt="" class="w-[24px] h-[24px] shrink-0" />}
+  {
+    icon && (
+      <img
+        src={`${ICONS_BASE}/${icon}.svg`}
+        alt=""
+        width="24"
+        height="24"
+        class="w-[24px] h-[24px] shrink-0"
+      />
+    )
+  }
   <slot />
 </a>

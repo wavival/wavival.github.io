@@ -12,14 +12,14 @@
   }
 
   .btn-primary {
-  @apply inline-flex items-center gap-2 px-[14px] py-[12px] rounded-lg font-display font-semibold text-sm uppercase tracking-wide text-white transition-all duration-300 cursor-pointer;
-  background-color: #1e90ff;
-}
+    @apply inline-flex w-fit items-center gap-2 px-[14px] py-[12px] rounded-lg font-display font-semibold text-sm uppercase tracking-wide text-white transition-all duration-300 cursor-pointer;
+    background-color: #1e90ff;
+  }
 
-.btn-primary:hover {
-  background-color: #1a7fe0;
-  transform: translateX(4px);
-}
+  .btn-primary:hover {
+    background-color: #1a7fe0;
+    transform: translateX(4px);
+  }
 
   .btn-ghost {
     @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-display font-semibold text-sm uppercase tracking-wide border border-[var(--accent-link)] text-[var(--accent-link)] hover:bg-[var(--accent-link)] hover:text-white transition-all duration-300 cursor-pointer;
@@ -30,36 +30,37 @@
   }
 
   .card {
-  @apply bg-transparent rounded-2xl border border-[var(--border-base)] border-b-[4px] p-6 transition-all duration-300;
-  min-height: 200px;
-  box-shadow: 0 2px 12px rgba(64, 123, 255, 0.07);
-}
+    @apply bg-transparent rounded-2xl border border-[var(--border-base)] border-b-[4px] p-6 transition-all duration-300;
+    min-height: 200px;
+    box-shadow: 0 2px 12px rgba(64, 123, 255, 0.07);
+  }
 
-.card:hover {
-  background-color: var(--bg-card);
-  transform: scale(1.01);
-  box-shadow: 0 6px 24px rgba(64, 123, 255, 0.15);
-}
+  .card:hover {
+    background-color: var(--bg-card);
+    transform: scale(1.01);
+    box-shadow: 0 6px 24px rgba(64, 123, 255, 0.15);
+  }
 
-.card-plain {
-  @apply rounded-2xl p-6 transition-all duration-300;
-  min-height: 200px;
-}
+  .card-plain {
+    @apply rounded-2xl p-6 transition-all duration-300;
+    min-height: 200px;
+  }
 
-.card-plain:hover {
-  transform: translateX(6px);
-}
+  .card-plain:hover {
+    transform: translateX(6px);
+  }
 
   .nav-link {
     @apply text-sm font-display font-semibold uppercase tracking-wide text-[var(--text-muted)] hover:text-[var(--accent-link)] transition-colors duration-200;
   }
-.link {
-  @apply inline-block text-[var(--accent-link)] hover:text-[var(--accent-hover)] font-display font-semibold uppercase text-sm tracking-wide transition-all duration-300 cursor-pointer;
-}
 
-.link:hover {
-  transform: translateX(4px);
-}
+  .link {
+    @apply inline-block text-[var(--accent-link)] hover:text-[var(--accent-hover)] font-display font-semibold uppercase text-sm tracking-wide transition-all duration-300 cursor-pointer;
+  }
+
+  .link:hover {
+    transform: translateX(4px);
+  }
 
   .icon {
     @apply shrink-0 transition-transform duration-200;

@@ -14,7 +14,7 @@ const saved = localStorage.getItem(KEY);
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 applyTheme(saved ?? (prefersDark ? "dark" : "light"));
 
-["theme-toggle-desktop", "theme-toggle-mobile"].forEach(id => {
+["theme-toggle-desktop", "theme-toggle-mobile"].forEach((id) => {
   document.getElementById(id)?.addEventListener("click", () => {
     const isDark = root.classList.contains("dark");
     const next = isDark ? "light" : "dark";
