@@ -1,15 +1,15 @@
 <h1 align="left">
-  <img src="assets/icon.svg" width="32px" valign="middle">
-  wavival.dev • Portfolio
+  <img src="assets/logo-w.png" width="48px" valign="middle">
+  Valentina Ramírez • Portfolio
 </h1>
 
-![Banner principal](assets/banner.png)
+![Banner principal](assets/mockup.png)
 
-> Portfolio of **Valentina Ramírez** — Backend Developer, AppSec enthusiast, Founder of [Lúmina W](https://luminaw.co). Third iteration of the site, built with Astro 6 and Tailwind 3. Static-rendered, dark-mode aware, SEO + A11Y + performance first. Deploys to Netlify in one click.
+[![Portfolio](https://img.shields.io/badge/Portfolio-wavival.dev-407bff?style=for-the-badge&logo=vercel&logoColor=white)](https://wavival.dev)
+[![Blog](https://img.shields.io/badge/Blog-blog.luminaw.co-407bff?style=for-the-badge&logo=hashnode&logoColor=white)](https://blog.luminaw.co/)
+[![Lúmina W](https://img.shields.io/badge/Lúmina%20W-luminaw.co-407bff?style=for-the-badge&logo=google-chrome&logoColor=white)](https://luminaw.co/)
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-wavival.dev-0F172A?style=for-the-badge&logo=astro&logoColor=white)](https://wavival.dev)
-[![Lúmina W](https://img.shields.io/badge/Lúmina_W-luminaw.co-0F172A?style=for-the-badge&logo=vercel&logoColor=white)](https://luminaw.co)
-[![Blog W](https://img.shields.io/badge/Blog_W-blog.luminaw.co-0F172A?style=for-the-badge&logo=ghost&logoColor=white)](https://blog.luminaw.co)
+> Portfolio of **Valentina Ramírez**, Backend Developer, AppSec enthusiast, Founder of [Lúmina W](https://luminaw.co). Third iteration of the site, built with Astro 6 and Tailwind 3. Static-rendered, dark-mode aware, SEO + A11Y + performance first. Deploys to Netlify in one click.
 
 ## Table of contents
 
