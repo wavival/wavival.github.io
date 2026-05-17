@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /cdn-cgi/
 
-Sitemap: https://wavival.github.io/sitemap.xml
+Sitemap: https://wavival.dev/sitemap-index.xml

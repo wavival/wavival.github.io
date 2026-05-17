@@ -50,6 +50,11 @@ ehthumbs.db
 # test coverage
 coverage/
 
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
 # editor swap / backup files
 *.swp
 *.swo

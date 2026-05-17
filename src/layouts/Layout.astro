@@ -17,9 +17,12 @@ const {
   noindex = false,
 } = Astro.props;
 
-const site = "https://wavival.github.io";
+const site = "https://wavival.dev";
 const canonicalURL = new URL(Astro.url.pathname, site);
 const ogImage = new URL(image, site);
+
+const GA_ID = import.meta.env.PUBLIC_GA_ID;
+const GSV = import.meta.env.PUBLIC_GSV;
 
 const jsonLd = JSON.stringify({
   "@context": "https://schema.org",
@@ -60,6 +63,17 @@ const jsonLd = JSON.stringify({
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (t === "dark" || (t === null && prefersDark)) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Valentina Ramírez" />
@@ -89,7 +103,7 @@ const jsonLd = JSON.stringify({
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content="Foto de perfil de Valentina Ramírez" />
-    <meta name="google-site-verification" content="GAJ3Vshl0xQlL_gd8Itjpn89-a6USC56CccXITSkLP0" />
+    {GSV && <meta name="google-site-verification" content={GSV} />}
     <link rel="icon" href={`${import.meta.env.BASE_URL}brand/logo-w.ico`} />
     <link rel="icon" type="image/webp" href={`${import.meta.env.BASE_URL}brand/logo-w.webp`} />
     <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}brand/logo-w.webp`} />
@@ -97,6 +111,12 @@ const jsonLd = JSON.stringify({
     <meta name="theme-color" content="#0f1117" media="(prefers-color-scheme: dark)" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="image"
+      href={`${import.meta.env.BASE_URL}images/profile.webp`}
+      fetchpriority="high"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Raleway:wght@600;700;800&display=swap"
       rel="stylesheet"
@@ -109,15 +129,17 @@ const jsonLd = JSON.stringify({
         rel="stylesheet"
       />
     </noscript>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-BC0CS9P1BY"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-BC0CS9P1BY");
-    </script>
+    {
+      GA_ID && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+          <script
+            is:inline
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${GA_ID}");`}
+          />
+        </>
+      )
+    }
     <script>
       import AOS from "aos";
       import "aos/dist/aos.css";

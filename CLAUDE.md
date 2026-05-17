@@ -2,23 +2,27 @@
 
 ## What this is
 
-Personal portfolio of **Valentina Ramírez** — Backend Developer, AppSec enthusiast, Founder of [Lúmina W](https://luminaw.co). Third iteration of the site, built to reflect real technical identity — not just a résumé.
+Personal portfolio of **Valentina Ramírez**, Backend Developer, AppSec enthusiast, Founder of [Lúmina W](https://luminaw.co). Third iteration of the site, built to reflect real technical identity, not just a résumé.
 
-**Production URL:** `https://wavival.github.io`
-**Repository:** `https://github.com/wavival/wavival.github.io`
+**Production URL:** `https://wavival.dev`
+**Repository:** `https://github.com/wavival/wavival.dev`
 
 ---
 
 ## Stack and versions
 
-- **Astro 5** (static output — no SSR, no server functions)
+- **Astro 6** (static output — no SSR, no server functions; `compressHTML: true`)
 - **Tailwind CSS v3** (`darkMode: 'class'`)
 - **TypeScript** (client-side scripts only)
 - **AOS** (Animate On Scroll)
+- **`@astrojs/sitemap`** — generates `/sitemap-index.xml` + `/sitemap-0.xml` at build
+- **Playwright** — E2E smoke tests (`tests/`)
 - **Prettier** + `prettier-plugin-astro`
-- **Node >= 22.12**
+- **Node >= 22.12** (CI pins `22`)
 
-Auto-deploy to **GitHub Pages** via GitHub Actions on every push to `main`.
+Auto-deploy to **Netlify** on every push to `main`. CI (`.github/workflows/ci.yml`) gates with format check → build → Playwright E2E before Netlify publishes.
+
+`.npmrc` sets `legacy-peer-deps=true` because `@astrojs/tailwind@6` declares an Astro 3/4/5 peer range while we run Astro 6.
 
 ---
 
@@ -47,7 +51,7 @@ src/
     404.astro         # Error page with noindex
   scripts/
     nav.ts            # Mobile menu + Escape key handler
-    theme.ts          # Dark/light mode toggle + localStorage
+    theme.ts          # Dark/light toggle + localStorage (post-paint sync)
   styles/
     global.css        # Imports, body base, prefers-reduced-motion
     tokens.css        # CSS custom properties (design tokens)
@@ -55,11 +59,15 @@ src/
 public/
   brand/              # logo-w.webp, logo-w.ico
   icons/ui/           # Decorative SVGs (always alt="")
-  images/             # profile.webp, mockup.png
-  robots.txt          # Allows indexing, references sitemap
-  sitemap.xml         # Static sitemap — update lastmod manually
+  images/             # profile.webp
   cv_valentina_ramirez.pdf
+  llms.txt            # llmstxt.org descriptor for AI assistants
+  robots.txt          # Allows indexing, references /sitemap-index.xml
+tests/                # Playwright E2E smoke tests
+.github/workflows/ci.yml  # quality + e2e gates
 ```
+
+The pre-paint theme script is inlined synchronously at the top of `<head>` in `Layout.astro` — it reads `localStorage["theme"]` (or `prefers-color-scheme`) and adds `.dark` to `<html>` before first paint. `src/scripts/theme.ts` only handles toggle clicks and icon sync after hydration.
 
 ---
 
@@ -133,9 +141,10 @@ Three columns: logo + social links, site navigation, resources. Year generated w
 - Twitter Card (`summary_large_image`)
 - JSON-LD: `Person` + `WebSite` schemas using `@graph`
 - `lang="es"` on `<html>`
-- Google Site Verification: `GAJ3Vshl0xQlL_gd8Itjpn89-a6USC56CccXITSkLP0`
-- Google Analytics: `G-BC0CS9P1BY`
-- Sitemap at `/sitemap.xml`, referenced in `robots.txt`
+- Google Site Verification: env-driven via `PUBLIC_GSV` (meta tag only emitted when set)
+- Google Analytics: env-driven via `PUBLIC_GA_ID` (scripts only emitted when set)
+- Sitemap auto-generated at `/sitemap-index.xml` by `@astrojs/sitemap`, referenced from `robots.txt`
+- `llms.txt` at `/llms.txt` describes the site for AI assistants (llmstxt.org spec)
 
 ### A11Y
 
@@ -152,11 +161,13 @@ Three columns: logo + social links, site navigation, resources. Year generated w
 
 ### Performance
 
-- Hero image: WebP, `fetchpriority="high"`, `decoding="async"`, explicit dimensions
-- Google Fonts: async non-blocking load via `media="print"` + `onload` + `<noscript>` fallback
-- Google Analytics script: `is:inline async`
-- All icon `<img>` elements have `width` and `height` to prevent CLS
-- AOS initialized with `once: true`, `duration: 0` when `prefers-reduced-motion` is set
+- Pre-paint theme script (sync `is:inline` in `<head>`) avoids FOUC.
+- Hero image: WebP, `fetchpriority="high"`, `decoding="async"`, explicit dimensions, plus `<link rel="preload" as="image">` for LCP.
+- Google Fonts: async non-blocking load via `media="print"` + `onload` + `<noscript>` fallback.
+- Google Analytics script: `is:inline async`, conditionally injected only when `PUBLIC_GA_ID` is set.
+- All icon `<img>` elements have `width` and `height` to prevent CLS.
+- AOS initialized with `once: true`, `duration: 0` when `prefers-reduced-motion` is set.
+- Netlify cache: `/_astro/`, `/images/`, `/brand/`, `/icons/` served immutable (1y). CSP + HSTS + frame-deny baked in.
 
 ---
 
@@ -164,22 +175,23 @@ Three columns: logo + social links, site navigation, resources. Year generated w
 
 If used as a template, these are the files containing Valentina's personal information:
 
-| File                                     | Data                                                                                                              |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `src/layouts/Layout.astro`               | Default title, description, site URL, JSON-LD (name, jobTitle, worksFor, sameAs), GA ID, Google Site Verification |
-| `src/components/sections/Hero.astro`     | Name, tagline, CV URL, social links                                                                               |
-| `src/components/sections/Projects.astro` | All projects (title, description, links)                                                                          |
-| `src/components/sections/Stack.astro`    | Stack categories and tools                                                                                        |
-| `src/components/sections/About.astro`    | Bio, personal quote, additional links                                                                             |
-| `src/components/sections/Contact.astro`  | Contact email                                                                                                     |
-| `src/components/ui/NavBar.astro`         | CTA email, blog URL                                                                                               |
-| `src/components/ui/Footer.astro`         | Name in copyright, Lúmina W links                                                                                 |
-| `public/sitemap.xml`                     | Production URL, `lastmod`                                                                                         |
-| `public/robots.txt`                      | Sitemap URL                                                                                                       |
-| `astro.config.mjs`                       | `site` URL                                                                                                        |
-| `public/cv_valentina_ramirez.pdf`        | CV file                                                                                                           |
-| `public/images/profile.webp`             | Profile photo                                                                                                     |
-| `public/brand/logo-w.*`                  | Brand logo                                                                                                        |
+| File                                     | Data                                                                                    |
+| ---------------------------------------- | --------------------------------------------------------------------------------------- |
+| `src/layouts/Layout.astro`               | Default title, description, `site` constant, JSON-LD (name, jobTitle, worksFor, sameAs) |
+| `.env` (`PUBLIC_GA_ID`, `PUBLIC_GSV`)    | GA Measurement ID + Google Site Verification token                                      |
+| `src/components/sections/Hero.astro`     | Name, tagline, CV URL, social links                                                     |
+| `src/components/sections/Projects.astro` | All projects (title, description, links)                                                |
+| `src/components/sections/Stack.astro`    | Stack categories and tools                                                              |
+| `src/components/sections/About.astro`    | Bio, personal quote, additional links                                                   |
+| `src/components/sections/Contact.astro`  | Contact email                                                                           |
+| `src/components/ui/NavBar.astro`         | CTA email, blog URL                                                                     |
+| `src/components/ui/Footer.astro`         | Name in copyright, Lúmina W links                                                       |
+| `public/robots.txt`                      | Sitemap absolute URL                                                                    |
+| `public/llms.txt`                        | Personal description, projects, links (llmstxt.org spec)                                |
+| `astro.config.mjs`                       | `site` URL                                                                              |
+| `public/cv_valentina_ramirez.pdf`        | CV file                                                                                 |
+| `public/images/profile.webp`             | Profile photo                                                                           |
+| `public/brand/logo-w.*`                  | Brand logo                                                                              |
 
 ---
 
@@ -198,11 +210,15 @@ If used as a template, these are the files containing Valentina's personal infor
 ## Available commands
 
 ```bash
-npm run dev          # Dev server at localhost:4321
-npm run build        # Static build to ./dist/
-npm run preview      # Preview the build
-npm run format       # Format with Prettier
-npm run format:check # Check formatting without writing
+npm run dev           # Dev server at localhost:4321
+npm run build         # Static build to ./dist/
+npm run preview       # Preview the build
+npm run check         # astro check (type + diagnostic)
+npm run format        # Format with Prettier
+npm run format:check  # Check formatting without writing
+npm test              # Playwright E2E (boots preview automatically)
+npm run test:ui       # Playwright UI mode
+npm run test:install  # One-time: download Chromium + system deps
 ```
 
 ---
@@ -215,4 +231,6 @@ npm run format:check # Check formatting without writing
 - Do not use `@media (prefers-color-scheme)` for dark mode — the toggle uses the `.dark` class
 - Do not omit `aria-label` on interactive elements with no visible text
 - Do not set image dimensions via CSS only — always include HTML `width` and `height` attributes as well
-- Do not edit the sitemap without also updating `lastmod`
+- Do not commit a static `public/sitemap.xml` — the sitemap is generated by `@astrojs/sitemap` at build time
+- Do not hardcode GA IDs or verification tokens — wire them through `PUBLIC_GA_ID` / `PUBLIC_GSV`
+- Do not move the pre-paint theme `<script is:inline>` out of the top of `<head>` — it must execute before stylesheets load to avoid FOUC
