@@ -16,6 +16,12 @@
   status = 200
   force = false
 
+[[redirects]]
+  from = "/root/*"
+  to = "https://ro-ot.netlify.app/:splat"
+  status = 200
+  force = false
+
 [[headers]]
   for = "/*"
   [headers.values]
