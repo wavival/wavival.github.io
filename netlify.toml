@@ -18,7 +18,7 @@
 
 [[redirects]]
   from = "/root/*"
-  to = "https://ro-ot.netlify.app/:splat"
+  to = "https://ro-ot.netlify.app/root/:splat"
   status = 200
   force = true
 
